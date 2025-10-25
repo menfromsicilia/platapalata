@@ -137,4 +137,39 @@ const getGradient = computed(() => {
 :global(.carousel .product-card-description) {
   display: none;
 }
+
+/* Mobile horizontal layout */
+@media (max-width: 768px) {
+  .product-card {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 100%; // Занимает всю ширину на мобильном
+  }
+
+  .product-card-image {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+  }
+
+  .product-card-content {
+    flex: 1;
+    padding: 0.75rem;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Центрируем содержимое
+    justify-content: center;
+    text-align: center; // Центрируем текст
+  }
+
+  .product-card-title {
+    margin-bottom: 0.25rem;
+  }
+
+  .product-card-description {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+  }
+}
 </style>

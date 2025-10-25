@@ -84,6 +84,13 @@
         <p class="form-hint">Ваучер и инструкцию по активации пришлем после оплаты на указанный адрес электронной почты.</p>
       </div>
 
+      <!-- Order Form -->
+      <OrderForm 
+        :denomination-price="finalAmount"
+        :can-purchase="canPurchase"
+        @purchase="handlePurchase"
+      />
+
       <!-- FAQ Section -->
       <div class="faq-section purchase-section">
         <h2 class="faq-title">Часто задаваемые вопросы</h2>
@@ -109,13 +116,6 @@
           </div>
         </details>
       </div>
-
-      <!-- Order Form -->
-      <OrderForm 
-        :denomination-price="finalAmount"
-        :can-purchase="canPurchase"
-        @purchase="handlePurchase"
-      />
     </div>
   </div>
 </template>
@@ -557,13 +557,30 @@ summary {
   }
 
   .hero-block {
+    grid-row: 1;
     flex-direction: column;
     text-align: center;
   }
 
+  .form-section:nth-of-type(1) {
+    grid-row: 2; // Steam account
+  }
+
+  .form-section:nth-of-type(2) {
+    grid-row: 3; // Amount
+  }
+
+  .form-section.purchase-section {
+    grid-row: 4; // Email
+  }
+
   :deep(.order-form) {
     grid-column: 1;
-    grid-row: auto; // Сброс grid-row для правильного порядка
+    grid-row: 5; // Order form после email
+  }
+
+  .faq-section {
+    grid-row: 6; // FAQ в конце
   }
 
   .hero-image {

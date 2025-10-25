@@ -41,7 +41,7 @@ const route = useRoute()
   box-shadow: $shadow-sm;
   position: sticky;
   top: 73px;
-  z-index: 40;
+  z-index: 45; // Чуть ниже header (50), чтобы не перекрывать его
 }
 
 ul {
@@ -81,7 +81,7 @@ a {
 /* Responsive */
 @media (max-width: 768px) {
   .category-nav {
-    top: 120px; // Увеличенная высота из-за wrap в header
+    top: 140px; // Увеличенная высота из-за wrap в header (2 ряда)
   }
 
   ul {
