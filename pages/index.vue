@@ -122,16 +122,16 @@ const servicesPreview = computed(() => {
   return productsStore.serviceProducts.slice(0, 4)
 })
 
-// Последние 3 статьи блога
-const { data: blogPosts } = await useAsyncData('blog-preview', () =>
-  queryContent('/blog')
-    .sort({ date: -1 })
-    .limit(3)
-    .find()
-)
-
-// Загрузка продуктов
-await productsStore.fetchProducts()
+// Параллельная загрузка данных для оптимизации
+const [{ data: blogPosts }] = await Promise.all([
+  useAsyncData('blog-preview', () =>
+    queryContent('/blog')
+      .sort({ date: -1 })
+      .limit(3)
+      .find()
+  ),
+  productsStore.fetchProducts()
+])
 
 // SEO
 useHead({

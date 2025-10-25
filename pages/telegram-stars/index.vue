@@ -178,6 +178,13 @@ const validateUsername = () => {
     return false
   }
   
+  // Проверка что никнейм содержит только латинские буквы, цифры и подчеркивания
+  const usernameRegex = /^[a-zA-Z0-9_]+$/
+  if (!usernameRegex.test(formData.username)) {
+    usernameError.value = 'Никнейм может содержать только латинские буквы, цифры и подчеркивания'
+    return false
+  }
+  
   usernameError.value = ''
   return true
 }

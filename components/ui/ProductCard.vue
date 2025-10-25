@@ -34,8 +34,11 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const productLink = computed(() => {
-  const categoryPath = props.product.category === 'telegram' ? 'telegram-stars' : props.product.category
-  return `/${categoryPath}/${props.product.slug}`
+  // Для Telegram Stars используем просто /telegram-stars без дублирования slug
+  if (props.product.category === 'telegram') {
+    return '/telegram-stars'
+  }
+  return `/${props.product.category}/${props.product.slug}`
 })
 
 // Градиенты для карточек (можно настроить для каждого продукта)

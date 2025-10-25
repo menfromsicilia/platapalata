@@ -501,11 +501,6 @@ useHead({
     color: $color-bg-primary;
     border-color: $color-accent-blue;
     box-shadow: 0 0 15px rgba(102, 192, 244, 0.3);
-
-    &:hover {
-      background: $color-accent-blue-secondary;
-      color: $color-text-light;
-    }
   }
 
   &:disabled {

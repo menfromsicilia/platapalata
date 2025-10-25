@@ -563,6 +563,7 @@ summary {
 
   :deep(.order-form) {
     grid-column: 1;
+    grid-row: auto; // Сброс grid-row для правильного порядка
   }
 
   .hero-image {

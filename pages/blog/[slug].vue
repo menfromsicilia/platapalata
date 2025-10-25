@@ -1,12 +1,20 @@
 <template>
   <div class="blog-post-page">
     <div class="container">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumbs">
+        <NuxtLink to="/">Главная</NuxtLink>
+        <span>→</span>
+        <NuxtLink to="/blog">Блог</NuxtLink>
+        <span>→</span>
+        <span>{{ post?.title }}</span>
+      </nav>
+
       <article v-if="post" class="blog-post">
         <header class="blog-post-header">
           <h1 class="blog-post-title">{{ post.title }}</h1>
           <div class="blog-post-meta">
             <span class="blog-post-date">{{ formatBlogDate(post.date) }}</span>
-            <span class="blog-post-author">{{ post.author }}</span>
           </div>
           <div v-if="post.tags && post.tags.length" class="blog-post-tags">
             <Tag v-for="tag in post.tags" :key="tag" :value="tag" severity="info" />
@@ -63,11 +71,38 @@ useHead({
 </script>
 
 <style lang="scss" scoped>
+@use '~/assets/scss/abstracts/variables' as *;
+@use '~/assets/scss/abstracts/mixins' as *;
+
 .blog-post-page {
   padding: $spacing-xl 0;
 
   @include desktop {
     padding: $spacing-2xl 0;
+  }
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.9375rem;
+  color: $color-gray;
+
+  a {
+    color: $color-accent-blue;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-accent-blue-secondary;
+    }
+  }
+
+  span:last-child {
+    color: $color-text-light;
   }
 }
 
@@ -98,14 +133,6 @@ useHead({
   color: $color-gray;
   font-size: 0.9375rem;
   margin-bottom: $spacing-md;
-}
-
-.blog-post-date::before {
-  content: '📅 ';
-}
-
-.blog-post-author::before {
-  content: '✍️ ';
 }
 
 .blog-post-tags {

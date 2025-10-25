@@ -3,7 +3,7 @@
     <div class="container">
       <h2 class="section-title">Часто задаваемые вопросы</h2>
       <div class="faq-section">
-        <details v-for="(faq, index) in faqs" :key="index">
+        <details v-for="(faq, index) in faqs" :key="index" @toggle="handleToggle">
           <summary>{{ faq.question }}</summary>
           <div class="faq-answer">
             {{ faq.answer }}
@@ -15,6 +15,15 @@
 </template>
 
 <script setup lang="ts">
+const handleToggle = (event: Event) => {
+  const details = event.target as HTMLDetailsElement
+  // Если аккордион закрывается, снимаем фокус
+  if (!details.open) {
+    const summary = details.querySelector('summary')
+    summary?.blur()
+  }
+}
+
 const faqs = [
   {
     question: 'Как быстро происходит пополнение?',

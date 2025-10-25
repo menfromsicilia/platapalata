@@ -15,7 +15,7 @@
         placeholder="your@email.com"
       >
       <p v-if="emailError" class="form-error">{{ emailError }}</p>
-      <p class="form-hint">Инструкцию отправим на email</p>
+      <p class="form-hint">Чек и подтверждение покупки отправим на указанный email после оплаты.</p>
     </div>
 
     <h3 class="form-subtitle">Выберите способ оплаты</h3>

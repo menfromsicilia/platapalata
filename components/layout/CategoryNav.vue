@@ -80,6 +80,10 @@ a {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .category-nav {
+    top: 120px; // Увеличенная высота из-за wrap в header
+  }
+
   ul {
     gap: 1rem;
   }
