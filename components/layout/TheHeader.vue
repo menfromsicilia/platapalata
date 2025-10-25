@@ -28,8 +28,6 @@
   top: 0;
   z-index: 50;
   background: rgba(4, 36, 48, 0.98);
-  border-bottom: 1px solid $color-bg-accent;
-  box-shadow: $shadow-md;
 }
 
 .header-content {
