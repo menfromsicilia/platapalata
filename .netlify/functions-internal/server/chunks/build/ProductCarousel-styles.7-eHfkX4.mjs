@@ -1,8 +1,0 @@
-const ProductCarousel_vue_vue_type_style_index_0_scoped_fcf0fb6b_lang = ".carousel-wrapper[data-v-fcf0fb6b]{padding:1rem 0;position:relative}.carousel-container[data-v-fcf0fb6b]{align-items:center;display:flex;gap:1rem;position:relative}.carousel-scroll[data-v-fcf0fb6b]{flex:1;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}.carousel-scroll[data-v-fcf0fb6b]::-webkit-scrollbar{display:none}.carousel-track[data-v-fcf0fb6b]{display:flex;gap:24px;padding:.5rem 0}.carousel-item[data-v-fcf0fb6b]{flex-shrink:0;scroll-snap-align:start;width:280px}.carousel-arrow[data-v-fcf0fb6b]{align-items:center;background:#2a475e;border:1px solid #2a475e;border-radius:50%;box-shadow:0 4px 8px #0006;cursor:pointer;display:flex;flex-shrink:0;height:48px;justify-content:center;position:relative;transition:all .3s;width:48px;z-index:10}.carousel-arrow[data-v-fcf0fb6b]:hover{background:#66c0f4;border-color:#66c0f4;box-shadow:0 0 15px #66c0f480;transform:scale(1.1)}.carousel-arrow svg[data-v-fcf0fb6b]{fill:#c7d5e0;height:20px;width:20px}.carousel-arrow:hover svg[data-v-fcf0fb6b]{fill:#171a21}.carousel-fallback[data-v-fcf0fb6b]{display:grid;gap:24px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));padding:1rem 0}.fallback-item[data-v-fcf0fb6b]{width:100%}@media(max-width:768px){.carousel-arrow[data-v-fcf0fb6b]{height:40px;width:40px}.carousel-arrow svg[data-v-fcf0fb6b]{height:16px;width:16px}.carousel-item[data-v-fcf0fb6b]{width:240px}}";
-
-const ProductCarouselStyles_7EHfkX4 = [
-  ProductCarousel_vue_vue_type_style_index_0_scoped_fcf0fb6b_lang
-];
-
-export { ProductCarouselStyles_7EHfkX4 as default };
-//# sourceMappingURL=ProductCarousel-styles.7-eHfkX4.mjs.map

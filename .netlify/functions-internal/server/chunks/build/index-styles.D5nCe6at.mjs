@@ -1,8 +1,0 @@
-const index_vue_vue_type_style_index_0_scoped_5df749a2_lang = ".catalog-page[data-v-5df749a2]{background:#171a21;min-height:100vh;padding:2rem 0}.breadcrumbs[data-v-5df749a2]{align-items:center;color:#646c76;display:flex;font-size:.875rem;gap:.5rem;padding:1.5rem 0 1rem}.breadcrumbs a[data-v-5df749a2]{color:#66c0f4;text-decoration:none;transition:color .2s}.breadcrumbs a[data-v-5df749a2]:hover{color:#5c9dc9}.breadcrumbs span[data-v-5df749a2]{color:#c7d5e0;font-weight:500}.page-title[data-v-5df749a2]{color:#c7d5e0;font-size:2.5rem;font-weight:700;margin-bottom:2rem}.products-grid[data-v-5df749a2]{display:grid;gap:2rem;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}.empty-state[data-v-5df749a2]{color:#646c76;font-size:1.125rem;padding:4rem 2rem;text-align:center}@media(max-width:768px){.page-title[data-v-5df749a2]{font-size:2rem}.products-grid[data-v-5df749a2]{gap:1.5rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}}";
-
-const indexStyles_D5nCe6at = [
-  index_vue_vue_type_style_index_0_scoped_5df749a2_lang
-];
-
-export { indexStyles_D5nCe6at as default };
-//# sourceMappingURL=index-styles.D5nCe6at.mjs.map
