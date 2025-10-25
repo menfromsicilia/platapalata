@@ -1,0 +1,7 @@
+# This file is handled by /server/routes/robots.txt.ts
+# Static fallback in case server route fails
+User-agent: *
+Allow: /
+
+Sitemap: https://platapalata.com/sitemap.xml
+

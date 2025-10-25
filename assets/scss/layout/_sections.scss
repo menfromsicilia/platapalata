@@ -1,0 +1,98 @@
+@use '../abstracts/variables' as *;
+
+/* Section - общие стили из оригинала */
+.section {
+  padding: 4rem 0;
+  background: $color-bg-primary;
+}
+
+.section-alt {
+  background: $color-bg-secondary;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: $color-text-light;
+}
+
+.section-link {
+  color: $color-accent-blue;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    color: $color-accent-blue-secondary;
+  }
+}
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: $color-accent-blue;
+  color: $color-bg-primary;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    background: $color-accent-blue-secondary;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(102, 192, 244, 0.4);
+  }
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: $color-bg-accent;
+  color: $color-text-light;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s;
+  border: 1px solid $color-bg-accent;
+  cursor: pointer;
+
+  &:hover {
+    background: $color-accent-blue;
+    color: $color-bg-primary;
+    border-color: $color-accent-blue;
+    transform: translateY(-2px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+

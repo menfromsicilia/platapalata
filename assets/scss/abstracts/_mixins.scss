@@ -1,0 +1,151 @@
+// ========================================
+// Responsive Mixins (Mobile First)
+// ========================================
+@use 'variables' as *;
+
+@mixin tablet {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: $wide) {
+    @content;
+  }
+}
+
+// ========================================
+// Container
+// ========================================
+@mixin container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+// ========================================
+// Flexbox
+// ========================================
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// ========================================
+// Text
+// ========================================
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ========================================
+// Shadows
+// ========================================
+@mixin card-shadow {
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+}
+
+// ========================================
+// Gradients
+// ========================================
+@mixin gradient-blue {
+  background: linear-gradient(135deg, $color-accent-blue 0%, $color-accent-blue-secondary 100%);
+}
+
+@mixin gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, $color-accent-blue 50%, $color-accent-blue-secondary 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ========================================
+// Animations
+// ========================================
+@mixin hover-lift {
+  transition: transform $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+// ========================================
+// Scrollbar
+// ========================================
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-bg-secondary;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-bg-accent;
+    border-radius: $radius-sm;
+
+    &:hover {
+      background: $color-accent-blue;
+    }
+  }
+}
+
+// ========================================
+// Focus state
+// ========================================
+@mixin focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba($color-accent-blue, 0.2);
+}
+
+// ========================================
+// Button reset
+// ========================================
+@mixin button-reset {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
