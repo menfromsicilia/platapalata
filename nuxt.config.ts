@@ -118,11 +118,6 @@ export default defineNuxtConfig({
     '/blog/**': { swr: 86400 }
   },
 
-  // Nitro настройки для Netlify
-  nitro: {
-    preset: 'netlify'
-  },
-
   devtools: { enabled: true }
 })
 
