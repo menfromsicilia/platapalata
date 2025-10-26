@@ -14,24 +14,13 @@
     <!-- Product Layout -->
     <div class="product-layout">
       <!-- Hero Block -->
-      <div class="hero-block">
-        <div class="hero-image">
-          <img v-if="product?.imageUrl" :src="product.imageUrl" :alt="product.name">
-        </div>
-        <div class="hero-content">
-          <h1 class="product-title">{{ product?.name }}</h1>
-          <div v-if="product?.isOfficial" class="official-badge">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <span>Официальный партнёр</span>
-          </div>
-          <p class="product-description">
-            {{ product?.description }}
-          </p>
-        </div>
-      </div>
+      <ProductHero 
+        v-if="product"
+        :title="product.name"
+        :description="product.description"
+        :image-url="product.imageUrl"
+        :is-official="product.isOfficial"
+      />
 
       <!-- Region/Server Selection (если есть) -->
       <div v-if="product?.fields?.find(f => f.type === 'select')" class="form-section region-section">
@@ -60,74 +49,14 @@
       </div>
 
       <!-- Purchase Form -->
-      <div class="form-section purchase-section">
-        <h2 class="section-title">Оформление покупки</h2>
-        <p class="section-subtitle">Получить ваучер и инструкцию</p>
-        <input 
-          v-model="formData.email"
-          type="email" 
-          class="form-input"
-          :class="{ 'error': emailError }"
-          placeholder="Введите вашу личную почту"
-          @blur="validateEmail"
-        >
-        <p v-if="emailError" class="form-error">{{ emailError }}</p>
-        <p class="form-hint">Ваучер и инструкцию по активации пришлем после оплаты на указанный адрес электронной почты.</p>
-      </div>
+      <EmailSection 
+        v-model="formData.email"
+        :error="emailError"
+        @validate="validateEmail"
+      />
 
       <!-- FAQ Section -->
-      <div class="faq-section">
-        <h2 class="faq-title">Часто задаваемые вопросы</h2>
-        
-        <details>
-          <summary>Как быстро происходит пополнение?</summary>
-          <div class="faq-answer">
-            Обычно пополнение происходит моментально после успешной оплаты. В редких случаях может потребоваться до 15 минут для обработки заказа.
-          </div>
-        </details>
-
-        <details>
-          <summary>Безопасно ли пополнять аккаунт через ваш сервис?</summary>
-          <div class="faq-answer">
-            Да, мы работаем только с официальными поставщиками и используем защищённые каналы передачи данных. Ваши данные надёжно защищены, а все транзакции проходят через проверенные платёжные системы.
-          </div>
-        </details>
-
-        <details>
-          <summary>Можно ли вернуть деньги?</summary>
-          <div class="faq-answer">
-            После успешного пополнения возврат средств невозможен согласно правилам продажи цифровых товаров. Если возникла ошибка при оформлении заказа - свяжитесь с нашей поддержкой, и мы поможем решить проблему.
-          </div>
-        </details>
-
-        <details>
-          <summary>Какие способы оплаты доступны?</summary>
-          <div class="faq-answer">
-            Мы принимаем банковские карты Visa, MasterCard и МИР, платежи через Систему быстрых платежей (СБП), электронные кошельки и криптовалюту. Выберите удобный способ при оформлении заказа.
-          </div>
-        </details>
-
-        <details>
-          <summary>Нужна ли регистрация на сайте?</summary>
-          <div class="faq-answer">
-            Нет, для покупки регистрация не требуется. Достаточно указать email для получения чека и деталей заказа. Все ваши покупки будут отправлены на указанный адрес электронной почты.
-          </div>
-        </details>
-
-        <details>
-          <summary>Что делать, если пополнение не пришло?</summary>
-          <div class="faq-answer">
-            Если через 15 минут после оплаты пополнение не поступило, проверьте правильность указанных данных аккаунта. Если всё верно - свяжитесь с нашей службой поддержки через Telegram, указав номер заказа.
-          </div>
-        </details>
-
-        <details>
-          <summary>Работаете ли вы круглосуточно?</summary>
-          <div class="faq-answer">
-            Да, наш сервис работает 24/7. Вы можете оформить заказ в любое время. Служба поддержки отвечает ежедневно с 9:00 до 23:00 МСК, но автоматическое пополнение доступно всегда.
-          </div>
-        </details>
-      </div>
+      <ProductFAQ />
 
       <!-- Order Form (Sticky on desktop) -->
       <OrderForm 
@@ -173,21 +102,14 @@ const serverField = computed(() =>
   product.value?.fields?.find(f => f.type === 'select')
 )
 
+// Validation composable
+const { validateEmail: validateEmailHelper } = useProductFormValidation()
+
 // Email validation
 const validateEmail = () => {
-  if (!formData.email) {
-    emailError.value = 'Email обязателен'
-    return false
-  }
-  
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(formData.email)) {
-    emailError.value = 'Введите корректный email'
-    return false
-  }
-  
-  emailError.value = ''
-  return true
+  const result = validateEmailHelper(formData.email)
+  emailError.value = result.error
+  return result.isValid
 }
 
 // Watch email changes
@@ -313,69 +235,7 @@ useHead({
   grid-row: 1 / 6;
 }
 
-/* Hero Block */
-.hero-block {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  background: $color-bg-secondary;
-  border-radius: 8px;
-  padding: 2rem;
-  margin-bottom: 1rem;
-  border: 1px solid $color-bg-accent;
-}
-
-.hero-image {
-  flex-shrink: 0;
-  width: 120px;
-  height: 120px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.hero-content {
-  flex: 1;
-}
-
-.product-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
-  color: $color-text-light;
-}
-
-.official-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(102, 192, 244, 0.15);
-  color: $color-accent-blue;
-  padding: 0.375rem 0.875rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(102, 192, 244, 0.3);
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-}
-
-.product-description {
-  color: $color-gray;
-  font-size: 0.9375rem;
-  line-height: 1.6;
-}
+/* Hero Block styles moved to ProductHero.vue component */
 
 /* Form Sections */
 .form-section {
@@ -509,99 +369,13 @@ useHead({
   }
 }
 
-/* FAQ Section */
-.faq-section {
-  margin-bottom: 2rem;
-}
-
-.faq-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  text-align: left;
-  color: $color-text-light;
-}
-
-details {
-  background: $color-bg-secondary;
-  border: 1px solid $color-bg-accent;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  overflow: hidden;
-  transition: all 0.3s;
-  outline: none;
-
-  &:focus {
-    outline: none;
-  }
-
-  &[open] {
-    border-color: $color-bg-accent;
-    box-shadow: $shadow-sm;
-  }
-
-  &[open] summary {
-    background: $color-bg-accent;
-    color: $color-accent-blue;
-    border-bottom: 1px solid $color-bg-accent;
-  }
-
-  &[open] summary::after {
-    transform: translateY(-50%) rotate(180deg);
-  }
-}
-
-summary {
-  padding: 1.25rem 3rem 1.25rem 1.5rem;
-  cursor: pointer;
-  font-weight: 600;
-  color: $color-text-light;
-  user-select: none;
-  transition: all 0.2s;
-  position: relative;
-  list-style: none;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-
-  &::after {
-    content: '▼';
-    position: absolute;
-    right: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: transform 0.3s;
-    color: $color-accent-blue;
-    font-size: 0.75rem;
-  }
-
-  &::-webkit-details-marker {
-    display: none;
-  }
-
-  &:hover {
-    color: $color-accent-blue;
-    background: $color-bg-accent;
-  }
-}
-
-.faq-answer {
-  padding: 1.25rem 1.5rem;
-  color: $color-text-light;
-  line-height: 1.8;
-  opacity: 0.9;
-}
+/* FAQ Section styles moved to ProductFAQ.vue component */
 
 /* Responsive */
 @media (max-width: 992px) {
   .product-layout {
     grid-template-columns: 1fr;
     gap: 2rem;
-  }
-
-  .hero-block {
-    grid-row: 1;
-    flex-direction: column;
-    text-align: center;
   }
 
   .region-section {
@@ -612,36 +386,15 @@ summary {
     grid-row: 3;
   }
 
-  .purchase-section {
-    grid-row: 4;
-  }
-
   :deep(.order-form) {
     grid-column: 1;
     grid-row: 5;
   }
-
-  .faq-section {
-    grid-row: 6;
-  }
-
-  .hero-image {
-    width: 100px;
-    height: 100px;
-  }
 }
 
 @media (max-width: 768px) {
-  .hero-block {
-    padding: 1.5rem;
-  }
-
   .form-section {
     padding: 1.5rem;
-  }
-
-  .product-title {
-    font-size: 1.5rem;
   }
 
   .denomination-grid {
@@ -650,26 +403,6 @@ summary {
 
   .denom-btn {
     padding: 0.875rem 0.5rem;
-    font-size: 0.875rem;
-  }
-
-  .faq-title {
-    text-align: left;
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  details {
-    border-radius: 8px;
-  }
-
-  summary {
-    padding: 1rem;
-    font-size: 0.9375rem;
-  }
-
-  .faq-answer {
-    padding: 0 1rem 1rem;
     font-size: 0.875rem;
   }
 }

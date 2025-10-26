@@ -93,8 +93,11 @@ const closeResults = () => {
 }
 
 const getProductUrl = (product: Product) => {
-  const categoryPath = product.category === 'telegram' ? 'telegram-stars' : product.category
-  return `/${categoryPath}/${product.slug}`
+  // Для Telegram Stars используем просто /telegram-stars без slug
+  if (product.category === 'telegram') {
+    return '/telegram-stars'
+  }
+  return `/${product.category}/${product.slug}`
 }
 
 const getCategoryIcon = (category: string) => {

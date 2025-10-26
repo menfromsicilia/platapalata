@@ -16,6 +16,11 @@
         <i class="pi pi-book empty-icon" />
         <p>Статьи скоро появятся</p>
       </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-wrapper">
+        <ProductFAQ />
+      </div>
     </div>
   </div>
 </template>
@@ -90,6 +95,10 @@ useHead({
   font-size: 4rem;
   margin-bottom: $spacing-lg;
   opacity: 0.5;
+}
+
+.faq-wrapper {
+  margin-top: 3rem;
 }
 </style>
 

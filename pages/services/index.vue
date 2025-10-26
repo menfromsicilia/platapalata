@@ -23,6 +23,11 @@
           :show-description="false"
         />
       </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-wrapper">
+        <ProductFAQ />
+      </div>
     </div>
   </div>
 </template>
@@ -97,6 +102,10 @@ useHead({
   padding: 4rem 2rem;
   color: $color-gray;
   font-size: 1.125rem;
+}
+
+.faq-wrapper {
+  margin-top: 3rem;
 }
 
 @media (max-width: 768px) {

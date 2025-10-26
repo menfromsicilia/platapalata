@@ -102,7 +102,11 @@
     </section>
 
     <!-- FAQ Section -->
-    <FAQSection />
+    <section class="faq-container">
+      <div class="container">
+        <ProductFAQ />
+      </div>
+    </section>
   </div>
 </template>
 
@@ -146,7 +150,14 @@ useHead({
 </script>
 
 <style lang="scss" scoped>
+@use '~/assets/scss/abstracts/variables' as *;
+
 .home-page {
   // Стили страницы
+}
+
+.faq-container {
+  padding: 4rem 0;
+  background: $color-bg-primary;
 }
 </style>

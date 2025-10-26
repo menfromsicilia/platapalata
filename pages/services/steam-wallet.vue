@@ -14,24 +14,13 @@
     <!-- Product Layout -->
     <div class="product-layout">
       <!-- Hero Block -->
-      <div class="hero-block">
-        <div class="hero-image" style="background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);">
-          <img v-if="product?.imageUrl" :src="product.imageUrl" :alt="product.name" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="hero-content">
-          <h1 class="product-title">Steam Wallet - Пополнение кошелька</h1>
-          <div class="official-badge">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <span>Официальный партнёр</span>
-          </div>
-          <p class="product-description">
-            Пополнение кошелька Steam на любую сумму. Покупайте игры, DLC и внутриигровые предметы.
-          </p>
-        </div>
-      </div>
+      <ProductHero 
+        title="Steam Wallet - Пополнение кошелька"
+        description="Пополнение кошелька Steam на любую сумму. Покупайте игры, DLC и внутриигровые предметы."
+        :image-url="product?.imageUrl"
+        image-style="background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);"
+        :is-official="true"
+      />
 
       <!-- Steam Account -->
       <div class="form-section">
@@ -69,20 +58,12 @@
       </div>
 
       <!-- Email Form (отдельный блок) -->
-      <div class="form-section purchase-section">
-        <h2 class="section-title">Оформление покупки</h2>
-        <p class="section-subtitle">Получить ваучер и инструкцию</p>
-        <input 
-          v-model="formData.email"
-          type="email" 
-          class="form-input"
-          :class="{ 'error': emailError }"
-          placeholder="Введите вашу личную почту"
-          @blur="validateEmail"
-        >
-        <p v-if="emailError" class="form-error">{{ emailError }}</p>
-        <p class="form-hint">Ваучер и инструкцию по активации пришлем после оплаты на указанный адрес электронной почты.</p>
-      </div>
+      <!-- Email Section -->
+      <EmailSection 
+        v-model="formData.email"
+        :error="emailError"
+        @validate="validateEmail"
+      />
 
       <!-- Order Form -->
       <OrderForm 
@@ -92,36 +73,28 @@
       />
 
       <!-- FAQ Section -->
-      <div class="faq-section purchase-section">
-        <h2 class="faq-title">Часто задаваемые вопросы</h2>
-        
-        <details>
-          <summary>Как быстро происходит пополнение?</summary>
-          <div class="faq-answer">
-            Steam кошелёк пополняется моментально после успешной оплаты. В редких случаях может потребоваться до 15 минут.
-          </div>
-        </details>
-
-        <details>
-          <summary>Какие данные нужны для пополнения?</summary>
-          <div class="faq-answer">
-            Нужна только ссылка на ваш профиль Steam или Steam ID. Никаких паролей или другой конфиденциальной информации.
-          </div>
-        </details>
-
-        <details>
-          <summary>Можно ли вернуть деньги?</summary>
-          <div class="faq-answer">
-            После успешного пополнения возврат средств невозможен согласно правилам продажи цифровых товаров.
-          </div>
-        </details>
-      </div>
+      <ProductFAQ :custom-faqs="steamFaqs" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { formatPrice } from '~/utils/formatters'
+
+const steamFaqs = [
+  {
+    question: 'Как быстро происходит пополнение?',
+    answer: 'Steam кошелёк пополняется моментально после успешной оплаты. В редких случаях может потребоваться до 15 минут.'
+  },
+  {
+    question: 'Какие данные нужны для пополнения?',
+    answer: 'Нужна только ссылка на ваш профиль Steam или Steam ID. Никаких паролей или другой конфиденциальной информации.'
+  },
+  {
+    question: 'Можно ли вернуть деньги?',
+    answer: 'После успешного пополнения возврат средств невозможен согласно правилам продажи цифровых товаров.'
+  }
+]
 
 const formData = reactive({
   steamAccount: '',
@@ -135,51 +108,26 @@ const emailError = ref('')
 
 const finalAmount = computed(() => customAmount.value || 0)
 
+// Validation composable
+const { validateRequired, validateAmount: validateAmountHelper, validateEmail: validateEmailHelper } = useProductFormValidation()
+
 // Validation
 const validateAccount = () => {
-  if (!formData.steamAccount) {
-    accountError.value = 'Steam аккаунт обязателен'
-    return false
-  }
-  
-  accountError.value = ''
-  return true
+  const result = validateRequired(formData.steamAccount, 'Steam аккаунт')
+  accountError.value = result.error
+  return result.isValid
 }
 
 const validateAmount = () => {
-  if (!customAmount.value) {
-    amountError.value = 'Введите сумму пополнения'
-    return false
-  }
-  
-  if (customAmount.value < 100) {
-    amountError.value = 'Минимальная сумма 100₽'
-    return false
-  }
-  
-  if (customAmount.value > 15000) {
-    amountError.value = 'Максимальная сумма 15000₽'
-    return false
-  }
-  
-  amountError.value = ''
-  return true
+  const result = validateAmountHelper(customAmount.value, 100, 15000)
+  amountError.value = result.error
+  return result.isValid
 }
 
 const validateEmail = () => {
-  if (!formData.email) {
-    emailError.value = 'Email обязателен'
-    return false
-  }
-  
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(formData.email)) {
-    emailError.value = 'Введите корректный email'
-    return false
-  }
-  
-  emailError.value = ''
-  return true
+  const result = validateEmailHelper(formData.email)
+  emailError.value = result.error
+  return result.isValid
 }
 
 const canPurchase = computed(() => {
@@ -570,22 +518,9 @@ summary {
     grid-row: 3; // Amount
   }
 
-  .form-section.purchase-section {
-    grid-row: 4; // Email
-  }
-
   :deep(.order-form) {
     grid-column: 1;
     grid-row: 5; // Order form после email
-  }
-
-  .faq-section {
-    grid-row: 6; // FAQ в конце
-  }
-
-  .hero-image {
-    width: 100px;
-    height: 100px;
   }
 }
 
