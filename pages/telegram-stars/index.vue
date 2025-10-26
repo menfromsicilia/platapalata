@@ -2,11 +2,7 @@
   <div class="telegram-stars-page">
     <div class="container">
       <!-- Breadcrumbs -->
-      <nav class="breadcrumbs">
-        <NuxtLink to="/">Главная</NuxtLink>
-        <span>→</span>
-        <span>Telegram Stars</span>
-      </nav>
+      <Breadcrumbs :items="breadcrumbItems" />
     </div>
 
     <!-- Product Layout -->
@@ -16,6 +12,7 @@
         title="Telegram Stars"
         description="Покупайте звёзды Telegram для доступа к премиум-контенту, поддержки авторов и использования эксклюзивных функций мессенджера."
         emoji="⭐"
+        emoji-background="#0088cc"
         :is-official="true"
       />
 
@@ -136,6 +133,12 @@ const packages = [
 const selectedPackage = ref(packages[1]) // По умолчанию второй пакет выбран
 const serviceFee = computed(() => 0) // У Telegram Stars нет комиссии
 
+// Breadcrumbs
+const breadcrumbItems = [
+  { label: 'Главная', path: '/' },
+  { label: 'Telegram Stars', path: '' }
+]
+
 // Validation
 const validateUsername = () => {
   const result = validateUsernameHelper(formData.username)
@@ -191,16 +194,8 @@ const handlePurchase = async (paymentMethod: string) => {
   // TODO: Redirect to payment
 }
 
-// SEO
-useHead({
-  title: 'Telegram Stars - PlataПалата',
-  meta: [
-    {
-      name: 'description',
-      content: 'Купить Telegram Stars для доступа к премиум-контенту, поддержки авторов и использования эксклюзивных функций мессенджера. Моментальная доставка, выгодные цены.'
-    }
-  ]
-})
+// SEO with Open Graph
+useCategorySeo('telegram')
 </script>
 
 <style lang="scss" scoped>
@@ -209,31 +204,6 @@ useHead({
 .telegram-stars-page {
   background: $color-bg-primary;
   min-height: 100vh;
-}
-
-/* Breadcrumbs */
-.breadcrumbs {
-  padding: 1.5rem 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: $color-gray;
-
-  a {
-    color: $color-accent-blue;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    &:hover {
-      color: $color-accent-blue-secondary;
-    }
-  }
-
-  span {
-    color: $color-text-light;
-    font-weight: 500;
-  }
 }
 
 /* Product Layout */

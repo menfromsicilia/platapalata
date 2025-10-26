@@ -1,6 +1,9 @@
 <template>
   <div class="blog-page">
     <div class="container">
+      <!-- Breadcrumbs -->
+      <Breadcrumbs :items="breadcrumbItems" />
+      
       <div class="blog-header">
         <h1 class="blog-title">Блог</h1>
         <p class="blog-description">
@@ -26,6 +29,12 @@
 </template>
 
 <script setup lang="ts">
+// Breadcrumbs
+const breadcrumbItems = [
+  { label: 'Главная', path: '/' },
+  { label: 'Блог', path: '' }
+]
+
 const { data: posts } = await useAsyncData('blog-posts', () =>
   queryContent('/blog')
     .sort({ date: -1 })

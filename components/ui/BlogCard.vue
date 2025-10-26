@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/blog/${post.slug}`" class="blog-card">
+  <NuxtLink :to="postUrl" class="blog-card">
     <div class="blog-card-image" :style="getImageStyle"></div>
     <div class="blog-card-content">
       <h3 class="blog-card-title">{{ post.title }}</h3>
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 interface Props {
   post: {
-    slug: string
+    _path: string
     title: string
     excerpt: string
     date: string
@@ -21,6 +21,8 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const postUrl = computed(() => props.post._path)
 
 const formattedDate = computed(() => {
   const date = new Date(props.post.date)
@@ -43,7 +45,7 @@ const getImageStyle = computed(() => {
     'linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 90%)'
   ]
   
-  const index = props.post.slug.length % gradients.length
+  const index = props.post._path.length % gradients.length
   return { background: gradients[index] }
 })
 </script>

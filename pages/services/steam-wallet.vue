@@ -2,13 +2,7 @@
   <div class="steam-page">
     <div class="container">
       <!-- Breadcrumbs -->
-      <nav class="breadcrumbs">
-        <NuxtLink to="/">Главная</NuxtLink>
-        <span>→</span>
-        <NuxtLink to="/services">Сервисы</NuxtLink>
-        <span>→</span>
-        <span>Steam Wallet</span>
-      </nav>
+      <Breadcrumbs :items="breadcrumbItems" />
     </div>
 
     <!-- Product Layout -->
@@ -108,6 +102,13 @@ const emailError = ref('')
 
 const finalAmount = computed(() => customAmount.value || 0)
 
+// Breadcrumbs
+const breadcrumbItems = [
+  { label: 'Главная', path: '/' },
+  { label: 'Сервисы', path: '/services' },
+  { label: 'Steam Wallet', path: '' }
+]
+
 // Validation composable
 const { validateRequired, validateAmount: validateAmountHelper, validateEmail: validateEmailHelper } = useProductFormValidation()
 
@@ -178,16 +179,10 @@ watch(() => formData.email, () => {
 // Получаем продукт для отображения
 const { data: product } = await useProductBySlug('steam-wallet')
 
-// SEO
-useHead({
-  title: 'Steam Wallet - Пополнение кошелька Steam - PlataПалата',
-  meta: [
-    {
-      name: 'description',
-      content: 'Пополнение кошелька Steam на любую сумму от 100₽ до 15000₽. Моментальное зачисление, официальный партнёр.'
-    }
-  ]
-})
+// SEO with Open Graph
+if (product.value) {
+  useProductSeo(product.value)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -196,31 +191,6 @@ useHead({
 .steam-page {
   background: $color-bg-primary;
   min-height: 100vh;
-}
-
-/* Используем все те же стили что и в [slug].vue */
-.breadcrumbs {
-  padding: 1.5rem 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: $color-gray;
-
-  a {
-    color: $color-accent-blue;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    &:hover {
-      color: $color-accent-blue-secondary;
-    }
-  }
-
-  span {
-    color: $color-text-light;
-    font-weight: 500;
-  }
 }
 
 .product-layout {
@@ -367,6 +337,8 @@ useHead({
 
   &::placeholder {
     color: $color-gray;
+    font-weight: 400;
+    font-size: 1rem;
   }
 
   &:hover {

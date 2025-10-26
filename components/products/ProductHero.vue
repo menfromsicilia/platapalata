@@ -1,6 +1,6 @@
 <template>
   <div class="hero-block">
-    <div class="hero-image" :style="imageStyle">
+    <div class="hero-image" :style="heroImageStyle">
       <span v-if="emoji" class="hero-emoji">{{ emoji }}</span>
       <img v-else-if="imageUrl" :src="imageUrl" :alt="title">
     </div>
@@ -28,9 +28,20 @@ interface Props {
   emoji?: string
   isOfficial?: boolean
   imageStyle?: string
+  emojiBackground?: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const heroImageStyle = computed(() => {
+  if (props.imageStyle) {
+    return props.imageStyle
+  }
+  if (props.emojiBackground) {
+    return `background: ${props.emojiBackground}`
+  }
+  return ''
+})
 </script>
 
 <style lang="scss" scoped>

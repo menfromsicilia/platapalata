@@ -2,13 +2,7 @@
   <div class="product-page-wrapper">
     <div class="container">
       <!-- Breadcrumbs -->
-      <nav class="breadcrumbs">
-        <NuxtLink to="/">Главная</NuxtLink>
-        <span>→</span>
-        <NuxtLink to="/games">Игры</NuxtLink>
-        <span>→</span>
-        <span>{{ product?.name }}</span>
-      </nav>
+      <Breadcrumbs :items="breadcrumbItems" />
     </div>
 
     <!-- Product Layout -->
@@ -102,6 +96,13 @@ const serverField = computed(() =>
   product.value?.fields?.find(f => f.type === 'select')
 )
 
+// Breadcrumbs
+const breadcrumbItems = computed(() => [
+  { label: 'Главная', path: '/' },
+  { label: 'Игры', path: '/games' },
+  { label: product.value?.name || '', path: '' }
+])
+
 // Validation composable
 const { validateEmail: validateEmailHelper } = useProductFormValidation()
 
@@ -146,16 +147,10 @@ const handlePurchase = async (paymentMethod: string) => {
   // TODO: Redirect to payment
 }
 
-// SEO
-useHead({
-  title: `${product.value?.name} - PlataПалата`,
-  meta: [
-    {
-      name: 'description',
-      content: product.value?.description || `Купить ${product.value?.name}`
-    }
-  ]
-})
+// SEO with Open Graph
+if (product.value) {
+  useProductSeo(product.value)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -164,31 +159,6 @@ useHead({
 .product-page-wrapper {
   background: $color-bg-primary;
   min-height: 100vh;
-}
-
-/* Breadcrumbs */
-.breadcrumbs {
-  padding: 1.5rem 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: $color-gray;
-
-  a {
-    color: $color-accent-blue;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    &:hover {
-      color: $color-accent-blue-secondary;
-    }
-  }
-
-  span {
-    color: $color-text-light;
-    font-weight: 500;
-  }
 }
 
 /* Product Layout */

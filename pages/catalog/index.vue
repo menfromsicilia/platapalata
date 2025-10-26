@@ -2,11 +2,7 @@
   <div class="catalog-page">
     <div class="container">
       <!-- Breadcrumbs -->
-      <nav class="breadcrumbs">
-        <NuxtLink to="/">Главная</NuxtLink>
-        <span>→</span>
-        <span>Все товары</span>
-      </nav>
+      <Breadcrumbs :items="breadcrumbItems" />
 
       <h1 class="page-title">Все товары</h1>
       
@@ -29,6 +25,12 @@
 
 <script setup lang="ts">
 const productsStore = useProductsStore()
+
+// Breadcrumbs
+const breadcrumbItems = [
+  { label: 'Главная', path: '/' },
+  { label: 'Все товары', path: '' }
+]
 
 const allProducts = computed(() => {
   // Возвращаем все продукты (игры + сервисы + telegram)
@@ -54,30 +56,6 @@ useHead({
   min-height: 100vh;
   background: $color-bg-primary;
   padding: 2rem 0;
-}
-
-.breadcrumbs {
-  padding: 1.5rem 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: $color-gray;
-
-  a {
-    color: $color-accent-blue;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    &:hover {
-      color: $color-accent-blue-secondary;
-    }
-  }
-
-  span {
-    color: $color-text-light;
-    font-weight: 500;
-  }
 }
 
 .page-title {

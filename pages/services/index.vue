@@ -2,11 +2,7 @@
   <div class="catalog-page">
     <div class="container">
       <!-- Breadcrumbs -->
-      <nav class="breadcrumbs">
-        <NuxtLink to="/">Главная</NuxtLink>
-        <span>→</span>
-        <span>Сервисы</span>
-      </nav>
+      <Breadcrumbs :items="breadcrumbItems" />
 
       <h1 class="page-title">Сервисы</h1>
       
@@ -39,16 +35,14 @@ const filteredProducts = computed(() => {
   return productsStore.getProductsByCategory('services')
 })
 
-// SEO
-useHead({
-  title: 'Сервисы - PlataПалата',
-  meta: [
-    {
-      name: 'description',
-      content: 'Подписки и сервисы для стриминга, игр и развлечений'
-    }
-  ]
-})
+// Breadcrumbs
+const breadcrumbItems = [
+  { label: 'Главная', path: '/' },
+  { label: 'Сервисы', path: '' }
+]
+
+// SEO with Open Graph
+useCategorySeo('services')
 </script>
 
 <style lang="scss" scoped>
@@ -58,30 +52,6 @@ useHead({
   min-height: 100vh;
   background: $color-bg-primary;
   padding: 2rem 0;
-}
-
-.breadcrumbs {
-  padding: 1.5rem 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: $color-gray;
-
-  a {
-    color: $color-accent-blue;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    &:hover {
-      color: $color-accent-blue-secondary;
-    }
-  }
-
-  span {
-    color: $color-text-light;
-    font-weight: 500;
-  }
 }
 
 .page-title {

@@ -90,7 +90,7 @@
             v-for="post in blogPosts"
             :key="post._path"
             :post="{
-              slug: post._path?.split('/').pop() || '',
+              _path: post._path || '',
               title: post.title,
               excerpt: post.description,
               date: post.date,

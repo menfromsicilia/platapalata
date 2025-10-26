@@ -2,13 +2,7 @@
   <div class="blog-post-page">
     <div class="container">
       <!-- Breadcrumbs -->
-      <nav class="breadcrumbs">
-        <NuxtLink to="/">Главная</NuxtLink>
-        <span>→</span>
-        <NuxtLink to="/blog">Блог</NuxtLink>
-        <span>→</span>
-        <span>{{ post?.title }}</span>
-      </nav>
+      <Breadcrumbs :items="breadcrumbItems" />
 
       <article v-if="post" class="blog-post">
         <header class="blog-post-header">
@@ -58,6 +52,13 @@ if (!post.value) {
   })
 }
 
+// Breadcrumbs
+const breadcrumbItems = computed(() => [
+  { label: 'Главная', path: '/' },
+  { label: 'Блог', path: '/blog' },
+  { label: post.value?.title || '', path: '' }
+])
+
 // SEO
 useHead({
   title: `${post.value?.title} - Блог PlataПалата`,
@@ -83,29 +84,6 @@ useHead({
 }
 
 /* Breadcrumbs */
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  font-size: 0.9375rem;
-  color: $color-gray;
-
-  a {
-    color: $color-accent-blue;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    &:hover {
-      color: $color-accent-blue-secondary;
-    }
-  }
-
-  span:last-child {
-    color: $color-text-light;
-  }
-}
-
 .blog-post {
   max-width: 800px;
   margin: 0 auto;
