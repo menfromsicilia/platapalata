@@ -175,7 +175,7 @@ if (product.value) {
 }
 
 /* Desktop grid positioning */
-.hero-block {
+:deep(.hero-block) {
   grid-column: 1;
   grid-row: 1;
 }
@@ -190,12 +190,12 @@ if (product.value) {
   grid-row: 3;
 }
 
-.purchase-section {
+:deep(.email-section) {
   grid-column: 1;
   grid-row: 4;
 }
 
-.faq-section {
+:deep(.faq-wrapper) {
   grid-column: 1;
   grid-row: 5;
 }
@@ -321,7 +321,7 @@ if (product.value) {
   cursor: pointer;
   transition: all 0.2s;
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not(.selected) {
     border-color: $color-accent-blue;
     background: $color-bg-accent;
   }
@@ -348,6 +348,10 @@ if (product.value) {
     gap: 2rem;
   }
 
+  :deep(.hero-block) {
+    grid-row: 1;
+  }
+
   .region-section {
     grid-row: 2;
   }
@@ -356,9 +360,17 @@ if (product.value) {
     grid-row: 3;
   }
 
+  :deep(.email-section) {
+    grid-row: 4;
+  }
+
   :deep(.order-form) {
     grid-column: 1;
     grid-row: 5;
+  }
+
+  :deep(.faq-wrapper) {
+    grid-row: 6;
   }
 }
 

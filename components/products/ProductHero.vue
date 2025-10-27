@@ -61,8 +61,8 @@ const heroImageStyle = computed(() => {
 
 .hero-image {
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 8px;
   overflow: hidden;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -78,7 +78,7 @@ const heroImageStyle = computed(() => {
 }
 
 .hero-emoji {
-  font-size: 4rem;
+  font-size: 5rem;
   line-height: 1;
 }
 
@@ -97,19 +97,19 @@ const heroImageStyle = computed(() => {
 .official-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   background: rgba(102, 192, 244, 0.15);
   color: $color-accent-blue;
-  padding: 0.375rem 0.875rem;
+  padding: 0.3rem 0.75rem;
   border-radius: 4px;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   margin-bottom: 1rem;
   border: 1px solid rgba(102, 192, 244, 0.3);
 
   svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -121,28 +121,47 @@ const heroImageStyle = computed(() => {
 
 /* Responsive */
 @media (max-width: 992px) {
-  .hero-block {
-    flex-direction: column;
-    text-align: center;
-  }
-
   .hero-image {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
   }
 
   .hero-emoji {
-    font-size: 3rem;
+    font-size: 4rem;
   }
 }
 
 @media (max-width: 768px) {
   .hero-block {
     padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .hero-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .hero-emoji {
+    font-size: 3.5rem;
   }
 
   .product-title {
     font-size: 1.5rem;
+  }
+
+  .product-description {
+    font-size: 0.875rem;
+  }
+
+  .official-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    
+    svg {
+      width: 12px;
+      height: 12px;
+    }
   }
 }
 </style>

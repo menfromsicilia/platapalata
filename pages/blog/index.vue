@@ -41,24 +41,34 @@ const { data: posts } = await useAsyncData('blog-posts', () =>
     .find()
 )
 
-// SEO
-useHead({
+// SEO with Open Graph
+const config = useRuntimeConfig()
+const route = useRoute()
+const fullUrl = `${config.public.siteUrl}${route.path}`
+
+useSeoMeta({
   title: 'Блог - PlataПалата',
-  meta: [
-    {
-      name: 'description',
-      content: 'Полезные статьи о пополнении игровых счетов, покупке ваучеров и подписок на популярные сервисы'
-    }
-  ]
+  description: 'Полезные статьи о пополнении игровых счетов, покупке ваучеров и подписок на популярные сервисы. Гайды, советы, новости.',
+  keywords: 'блог, статьи, гайды, пополнение счетов, игровые ваучеры',
+  ogTitle: 'Блог - PlataПалата',
+  ogDescription: 'Полезные статьи о цифровых товарах и сервисах',
+  ogImage: `${config.public.siteUrl}/logo.png`,
+  ogUrl: fullUrl,
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: fullUrl }]
 })
 </script>
 
 <style lang="scss" scoped>
 .blog-page {
-  padding: $spacing-xl 0;
+  padding: 0;
 
   @include desktop {
-    padding: $spacing-2xl 0;
+    padding: 0;
   }
 }
 

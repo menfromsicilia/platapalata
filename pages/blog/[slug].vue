@@ -59,15 +59,24 @@ const breadcrumbItems = computed(() => [
   { label: post.value?.title || '', path: '' }
 ])
 
-// SEO
-useHead({
+// SEO with Open Graph
+const config = useRuntimeConfig()
+const fullUrl = `${config.public.siteUrl}${route.path}`
+
+useSeoMeta({
   title: `${post.value?.title} - Блог PlataПалата`,
-  meta: [
-    {
-      name: 'description',
-      content: post.value?.description || ''
-    }
-  ]
+  description: post.value?.description || '',
+  ogTitle: post.value?.title || '',
+  ogDescription: post.value?.description || '',
+  ogImage: post.value?.image ? `${config.public.siteUrl}${post.value.image}` : `${config.public.siteUrl}/images/blog/top-games.jpg`,
+  ogUrl: fullUrl,
+  ogType: 'article',
+  twitterCard: 'summary_large_image',
+  articlePublishedTime: post.value?.date || ''
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: fullUrl }]
 })
 </script>
 
@@ -76,10 +85,10 @@ useHead({
 @use '~/assets/scss/abstracts/mixins' as *;
 
 .blog-post-page {
-  padding: $spacing-xl 0;
+  padding: 0;
 
   @include desktop {
-    padding: $spacing-2xl 0;
+    padding: 0;
   }
 }
 

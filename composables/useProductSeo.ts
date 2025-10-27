@@ -39,7 +39,7 @@ export const generateProductSEO = (product: Product): SEOData => {
     keywords,
     ogTitle: title,
     ogDescription: description.slice(0, 200),
-    ogImage: product.imageUrl || ''
+    ogImage: product.imageUrl || '/images/common/telegram-stars.svg'
   }
 }
 
@@ -56,13 +56,13 @@ export const useProductSeo = (product: Product) => {
     keywords: seoData.keywords.join(', '),
     ogTitle: seoData.ogTitle,
     ogDescription: seoData.ogDescription,
-    ogImage: seoData.ogImage || `${config.public.siteUrl}/og-default.jpg`,
+    ogImage: seoData.ogImage ? `${config.public.siteUrl}${seoData.ogImage}` : `${config.public.siteUrl}/logo.png`,
     ogUrl: fullUrl,
     ogType: 'product',
     twitterCard: 'summary_large_image',
     twitterTitle: seoData.ogTitle,
     twitterDescription: seoData.ogDescription,
-    twitterImage: seoData.ogImage || `${config.public.siteUrl}/og-default.jpg`
+    twitterImage: seoData.ogImage ? `${config.public.siteUrl}${seoData.ogImage}` : `${config.public.siteUrl}/logo.png`
   })
 
   // Product Schema (JSON-LD)
@@ -102,7 +102,7 @@ export const generateCategorySEO = (category: 'games' | 'services' | 'telegram')
       keywords: ['игровые ваучеры', 'game cards', 'подарочные карты для игр', 'купить ваучер'],
       ogTitle: 'Игры - PlataПалата',
       ogDescription: 'Каталог игровых ваучеров',
-      ogImage: '/og-games.jpg'
+      ogImage: '/logo.png'
     },
     services: {
       title: 'Подписки и сервисы',
@@ -111,7 +111,7 @@ export const generateCategorySEO = (category: 'games' | 'services' | 'telegram')
       keywords: ['подписки', 'сервисы', 'премиум подписки', 'купить подписку'],
       ogTitle: 'Сервисы - PlataПалата',
       ogDescription: 'Каталог подписок и сервисов',
-      ogImage: '/og-services.jpg'
+      ogImage: '/logo.png'
     },
     telegram: {
       title: 'Telegram Stars - Купить звёзды Telegram',
@@ -120,7 +120,7 @@ export const generateCategorySEO = (category: 'games' | 'services' | 'telegram')
       keywords: ['telegram stars', 'звёзды telegram', 'купить telegram stars'],
       ogTitle: 'Telegram Stars - PlataПалата',
       ogDescription: 'Купить звёзды Telegram',
-      ogImage: '/og-telegram.jpg'
+      ogImage: '/logo.png'
     }
   }
 

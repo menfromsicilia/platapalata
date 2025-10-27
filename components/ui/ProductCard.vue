@@ -95,7 +95,7 @@ const getGradient = computed(() => {
 
 .product-card-image {
   width: 100%;
-  height: 220px;
+  height: 340px;
   background: linear-gradient(135deg, $color-bg-accent 0%, $color-bg-dark 100%);
   position: relative;
   overflow: hidden;
@@ -133,6 +133,11 @@ const getGradient = computed(() => {
   margin-top: 0.5rem;
 }
 
+/* Carousel cards - keep original height */
+:global(.carousel .product-card-image) {
+  height: 330px;
+}
+
 /* Hide description in carousel cards */
 :global(.carousel .product-card-description) {
   display: none;
@@ -147,8 +152,8 @@ const getGradient = computed(() => {
   }
 
   .product-card-image {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     flex-shrink: 0;
   }
 

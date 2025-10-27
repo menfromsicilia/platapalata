@@ -223,8 +223,8 @@ if (product.value) {
 
 .hero-image {
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -478,8 +478,6 @@ summary {
 
   .hero-block {
     grid-row: 1;
-    flex-direction: column;
-    text-align: center;
   }
 
   .form-section:nth-of-type(1) {

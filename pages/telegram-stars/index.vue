@@ -263,15 +263,15 @@ useCategorySeo('telegram')
 
 .hero-image {
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 8px;
   overflow: hidden;
   background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4rem;
+  font-size: 5rem;
 }
 
 .hero-content {
@@ -599,8 +599,6 @@ summary {
 
   .hero-block {
     grid-row: 1;
-    flex-direction: column;
-    text-align: center;
   }
 
   .telegram-username-section {
@@ -625,8 +623,9 @@ summary {
   }
 
   .hero-image {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
+    font-size: 4rem;
   }
 }
 

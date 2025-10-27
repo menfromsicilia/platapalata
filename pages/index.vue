@@ -137,15 +137,25 @@ const [{ data: blogPosts }] = await Promise.all([
   productsStore.fetchProducts()
 ])
 
-// SEO
-useHead({
+// SEO with Open Graph
+const config = useRuntimeConfig()
+const route = useRoute()
+const fullUrl = config.public.siteUrl
+
+useSeoMeta({
   title: 'PlataПалата - Быстрое пополнение игровых аккаунтов',
-  meta: [
-    {
-      name: 'description',
-      content: 'Мгновенное пополнение Steam, Epic Games, PlayStation, Xbox и других популярных платформ. Безопасно, быстро и с гарантией возврата.'
-    }
-  ]
+  description: 'Мгновенное пополнение Steam, Epic Games, PlayStation, Xbox и других популярных платформ. Безопасно, быстро и с гарантией возврата.',
+  keywords: 'пополнение игровых счетов, steam wallet, игровые ваучеры, подписки, netflix, spotify',
+  ogTitle: 'PlataПалата - Игровые ваучеры и подписки',
+  ogDescription: 'Мгновенное пополнение игровых счетов и покупка подписок. Genshin Impact, Steam, Netflix, Spotify и другие.',
+  ogImage: `${config.public.siteUrl}/logo.png`,
+  ogUrl: fullUrl,
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: fullUrl }]
 })
 </script>
 

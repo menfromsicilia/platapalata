@@ -37,15 +37,25 @@ const allProducts = computed(() => {
   return productsStore.allProducts
 })
 
-// SEO
-useHead({
+// SEO with Open Graph
+const config = useRuntimeConfig()
+const route = useRoute()
+const fullUrl = `${config.public.siteUrl}${route.path}`
+
+useSeoMeta({
   title: 'Все товары - PlataПалата',
-  meta: [
-    {
-      name: 'description',
-      content: 'Полный каталог игровых ваучеров, подписок и сервисов'
-    }
-  ]
+  description: 'Полный каталог игровых ваучеров, подписок и сервисов. Genshin Impact, Netflix, Spotify, Steam и другие. Быстрая доставка, выгодные цены.',
+  keywords: 'каталог товаров, игровые ваучеры, подписки, сервисы, купить',
+  ogTitle: 'Все товары - PlataПалата',
+  ogDescription: 'Полный каталог игровых ваучеров, подписок и сервисов',
+  ogImage: `${config.public.siteUrl}/logo.png`,
+  ogUrl: fullUrl,
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: fullUrl }]
 })
 </script>
 
@@ -55,7 +65,7 @@ useHead({
 .catalog-page {
   min-height: 100vh;
   background: $color-bg-primary;
-  padding: 2rem 0;
+  padding: 0;
 }
 
 .page-title {

@@ -51,7 +51,7 @@ useCategorySeo('services')
 .catalog-page {
   min-height: 100vh;
   background: $color-bg-primary;
-  padding: 2rem 0;
+  padding: 0;
 }
 
 .page-title {
